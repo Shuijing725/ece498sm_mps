@@ -375,12 +375,8 @@ class DDQNAgent:
             # act randomly
             return env.action_space.sample()
         else:
-            # act greedily according to self.critic
-            # print('state:', state)
             values = self.critic.forward(state)
             values = values.cpu().detach().numpy()  # values = [[float, float, ..., float]]
-            # print('values:', values)
-            # print(np.argmax(values[0]))
             return np.argmax(values[0])
 
     def train(self, env):
@@ -395,10 +391,8 @@ class DDQNAgent:
             clear_output(wait=True)
             print("iterations", i)
             while not terminal:
-                # print('state:', s)
+
                 j = j + 1
-                # print ("J", j)
-                # env.render()
                 input_state = np.reshape(s, (1, self.critic.state_dim))
                 input_state = torch.from_numpy(input_state)
                 dtype = torch.FloatTensor
@@ -406,15 +400,10 @@ class DDQNAgent:
                 if CUDA:
                     input_state = input_state.cuda()
 
-                #                 a = a.data.cpu().numpy()
-                #                 a = self.take_action(a[0], env.action_space.n, epsilon_t)
                 a = self.take_action(input_state, env.action_space.n, epsilon_t)
-                print('action taken:', a)
+                # print('action taken:', a)
                 s2, r, terminal, info = env.step(a)
-                # if i == self.episode_len - 1:
-                #     print('action:', a)
-                #     env.render()
-                # print('s2:', s2)
+
                 self.replay_buffer.add(np.reshape(s, (self.critic.state_dim,)),
                                        a,
                                        r, terminal, np.reshape(s2, (self.critic.state_dim,)))
@@ -434,7 +423,7 @@ class DDQNAgent:
                     r_batch = torch.from_numpy(r_batch).type(torch.FloatTensor)
 
                     # find y:
-                    q_values = self.critic.forward(s2_batch)
+                    q_values = self.target_critic.forward(s2_batch)
                     maxQ = torch.max(q_values, 1)[0]
                     maxQ = torch.reshape(maxQ, r_batch.shape)
                     assert (r_batch.shape == maxQ.shape)
@@ -445,32 +434,6 @@ class DDQNAgent:
                         if t_batch[i, 0]:
                             y[i, 0] = r_batch[i, 0]
 
-
-                    # if not terminal:
-                    #     # q_values = self.target_critic.forward(s2_batch)
-                    #
-                    #     q_values = self.critic.forward(s2_batch)
-                    #     # print('q_values:', q_values)
-                    #     # print(torch.max(q_values, 1)[0])
-                    #     maxQ = torch.max(q_values, 1)[0]
-                    #     # print(r_batch.shape)
-                    #     maxQ = torch.reshape(maxQ, r_batch.shape)
-                    #     # maxQ = torch.empty(s_batch.shape[0], s_batch.shape[1], dtype = torch.float)
-                    #     # for i in range(len(q_values)):
-                    #     #     maxQ[i, 0] = max(q_values[i])
-                    #     # print('maxQ:', maxQ)
-                    #     assert (r_batch.shape == maxQ.shape)
-                    #     y = r_batch + self.gamma * maxQ
-                    #     # y = np.zeros(s_batch.shape)
-                    #     # # calculate max_a' (targetNetwork(s2, a'))
-                    #     # for i in range(len(s2_batch)):
-                    #     #     s2_cur = torch.Tensor(s2_batch[i, 0])
-                    #     #     s2_cur = Variable(s2_cur)
-                    #     #     print("s2_cur:", s2_cur)
-                    #     #     q_values = self.target_critic.forward(s2_cur)
-                    #     #     y[i, 0] = r_batch[i, 0] + self.gamma * np.max(q_values.numpy())
-                    # else:
-                    #     y = r_batch
 
                     if CUDA:
                         s2_batch = s2_batch.cuda()
@@ -484,7 +447,7 @@ class DDQNAgent:
                     #####################
 
                     self.critic.train(s_batch, a_batch, y)
-                    if i % 10 == 0:
+                    if i % 1 == 0:
                         self.target_critic.update_target_weights(self.critic)
 
                 else:
@@ -553,7 +516,7 @@ class arg:
         self.bufferlength=2000
         self.l2_decay=0.01
         self.gamma=0.6
-        self.episode_len=30
+        self.episode_len=500
         self.episode_steps=1000
         self.epsilon=0.1
         self.epsilon_decay=0.999
@@ -604,12 +567,6 @@ def main(args):
 
     if args.is_train:
         agent.train(env)
-        # done = False
-        #
-        # while not done:
-        #     action = env.action_space.sample()
-        #     state, reward, done, info = env.step(action)
-        #     env.render()
         agent.test(env)
 
 

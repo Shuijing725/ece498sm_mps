@@ -1,0 +1,42 @@
+Episode: 10
+Average timesteps per episode: 101.0
+Average penalties per episode: 12.09
+
+Episode: 100
+Average timesteps per episode: 101.0
+Average penalties per episode: 4.96
+
+Episode: 1000
+epsilon = 0.1
+Average timesteps per episode: 93.65
+Average penalties per episode: 0.0
+
+Episode: 10000
+Average timesteps per episode: 19.47
+Average penalties per episode: 0.0
+
+Episode: 100000
+Average timesteps per episode: 12.63
+Average penalties per episode: 0.0
+
+Episode: 1000000
+Average timesteps per episode: 12.54
+Average penalties per episode: 0.0
+
+Episode: 1000
+epsilon = 0, 0.05, 0.1, 0.2, 0.5, 0.8, 1
+Average timesteps per episode: 92.65
+Average penalties per episode: 0.0
+
+------------------------------------
+DQN:
+episode = 1000: yes
+episode = 800: yes
+episode = 650: yes
+episode = 550: yes
+episode = 500: yes
+episode = 400: yes
+episode = 300: yes, Average penalties per episode: 65.65
+episode = 250: Average penalties per episode: 75.73
+episode = 100: Average penalties per episode: 100.96
+
