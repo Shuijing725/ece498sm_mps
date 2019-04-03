@@ -1,0 +1,6 @@
+<launch>
+  <node name="vehicle_control_example" pkg="mp1" type="vehicle_control_example.py" />
+  <node name="image_publisher" pkg="mp1" type="image_publisher.py" />
+<node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view" respawn="false" output="screen">
+</node>
+</launch>

@@ -1,0 +1,27 @@
+Basic net (choose class 24 only):
+
+*********************************
+scale:
+training: loss =  8.22263384796679  accuracy = 99 %
+
+testing: 
+accuracy = 99 %
+Accuracy of    24 : 100 %
+
+*********************************
+rotate:
+training: loss =  8.8170743342489  accuracy = 99 %
+
+testing: 
+accuracy = 99 %
+Accuracy of    24 : 100 %
+
+*********************************
+rotate:
+training: loss =  8.799490505829453  accuracy = 99 %
+
+testing: 
+accuracy = 99 %
+Accuracy of    24 : 100 %
+
+

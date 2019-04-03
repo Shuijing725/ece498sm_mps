@@ -1,0 +1,239 @@
+Basic net:
+
+training: 
+epoch 0 : loss =  750.5956605672836  accuracy = 60 %
+epoch 1 : loss =  362.3758336901665  accuracy = 84 %
+epoch 2 : loss =  198.80733183026314  accuracy = 91 %
+epoch 3 : loss =  125.21437066793442  accuracy = 94 %
+epoch 4 : loss =  86.49901130795479  accuracy = 96 %
+epoch 5 : loss =  64.76651419699192  accuracy = 97 %
+epoch 6 : loss =  50.3715366050601  accuracy = 98 %
+epoch 7 : loss =  41.05456803739071  accuracy = 98 %
+epoch 8 : loss =  33.49473490938544  accuracy = 99 %
+epoch 9 : loss =  28.595109436661005  accuracy = 99 %
+epoch 10 : loss =  24.34669317677617  accuracy = 99 %
+epoch 11 : loss =  21.101964384317398  accuracy = 99 %
+epoch 12 : loss =  18.21315338462591  accuracy = 99 %
+epoch 13 : loss =  16.044723268598318  accuracy = 99 %
+epoch 14 : loss =  14.47047539614141  accuracy = 99 %
+epoch 15 : loss =  12.927371816709638  accuracy = 99 %
+epoch 16 : loss =  11.58761558867991  accuracy = 99 %
+epoch 17 : loss =  10.625184087082744  accuracy = 99 %
+epoch 18 : loss =  9.823631344363093  accuracy = 99 %
+epoch 19 : loss =  8.815403565764427  accuracy = 99 %
+Finished Training
+
+testing:
+accuracy = 99 %
+
+Accuracy of     0 : 100 %
+Accuracy of     1 : 100 %
+Accuracy of     2 : 99 %
+Accuracy of     3 : 100 %
+Accuracy of     4 : 100 %
+Accuracy of     5 : 100 %
+Accuracy of     6 : 100 %
+Accuracy of     7 : 100 %
+Accuracy of     8 : 100 %
+Accuracy of     9 : 100 %
+Accuracy of    10 : 100 %
+Accuracy of    11 : 100 %
+Accuracy of    12 : 100 %
+Accuracy of    13 : 100 %
+Accuracy of    14 : 100 %
+Accuracy of    15 : 100 %
+Accuracy of    16 : 100 %
+Accuracy of    17 : 100 %
+Accuracy of    18 : 99 %
+Accuracy of    19 : 100 %
+Accuracy of    20 : 100 %
+Accuracy of    21 : 100 %
+Accuracy of    22 : 100 %
+Accuracy of    23 : 99 %
+Accuracy of    24 : 98 %
+Accuracy of    25 : 100 %
+Accuracy of    26 : 98 %
+Accuracy of    27 : 100 %
+Accuracy of    28 : 100 %
+Accuracy of    29 : 100 %
+Accuracy of    30 : 100 %
+Accuracy of    31 : 100 %
+Accuracy of    32 : 100 %
+Accuracy of    33 : 100 %
+Accuracy of    34 : 100 %
+Accuracy of    35 : 99 %
+Accuracy of    36 : 100 %
+Accuracy of    37 : 100 %
+Accuracy of    38 : 100 %
+Accuracy of    39 : 100 %
+Accuracy of    40 : 100 %
+Accuracy of    41 : 100 %
+Accuracy of    42 : 100 %
+
+*****************************************************
+Residual net:
+
+training:
+epoch 0 : loss =  1069.397139787674  accuracy = 13 %
+epoch 1 : loss =  903.8203444480896  accuracy = 41 %
+epoch 2 : loss =  508.3717370033264  accuracy = 66 %
+epoch 3 : loss =  332.93034559488297  accuracy = 74 %
+epoch 4 : loss =  265.3660196661949  accuracy = 80 %
+epoch 5 : loss =  222.5479115843773  accuracy = 83 %
+epoch 6 : loss =  191.71064034104347  accuracy = 84 %
+epoch 7 : loss =  167.8399486541748  accuracy = 86 %
+epoch 8 : loss =  154.03134413063526  accuracy = 88 %
+epoch 9 : loss =  136.8385100364685  accuracy = 88 %
+epoch 10 : loss =  121.90568380057812  accuracy = 90 %
+epoch 11 : loss =  110.81403024494648  accuracy = 90 %
+epoch 12 : loss =  101.32067017257214  accuracy = 93 %
+epoch 13 : loss =  87.15697503089905  accuracy = 92 %
+epoch 14 : loss =  80.35355002433062  accuracy = 94 %
+epoch 15 : loss =  73.11275655031204  accuracy = 94 %
+epoch 16 : loss =  66.77897110208869  accuracy = 95 %
+epoch 17 : loss =  59.85607712715864  accuracy = 93 %
+epoch 18 : loss =  56.519718661904335  accuracy = 95 %
+epoch 19 : loss =  51.6115425825119  accuracy = 96 %
+epoch 20 : loss =  45.51526004821062  accuracy = 96 %
+epoch 21 : loss =  42.1503877826035  accuracy = 96 %
+epoch 22 : loss =  37.954599134624004  accuracy = 96 %
+epoch 23 : loss =  36.96406941115856  accuracy = 97 %
+epoch 24 : loss =  34.05278417095542  accuracy = 97 %
+epoch 25 : loss =  34.509733986109495  accuracy = 97 %
+epoch 26 : loss =  30.390641789883375  accuracy = 98 %
+epoch 27 : loss =  26.11163022555411  accuracy = 98 %
+epoch 28 : loss =  27.031115002930164  accuracy = 98 %
+epoch 29 : loss =  25.359347578138113  accuracy = 98 %
+epoch 30 : loss =  22.242738790810108  accuracy = 98 %
+epoch 31 : loss =  20.99520144984126  accuracy = 98 %
+epoch 32 : loss =  20.57989541441202  accuracy = 98 %
+epoch 33 : loss =  18.032415129244328  accuracy = 98 %
+epoch 34 : loss =  18.703781709074974  accuracy = 98 %
+epoch 35 : loss =  17.261654714122415  accuracy = 98 %
+epoch 36 : loss =  18.711182894185185  accuracy = 98 %
+epoch 37 : loss =  14.89128803089261  accuracy = 98 %
+epoch 38 : loss =  15.647527830675244  accuracy = 98 %
+epoch 39 : loss =  14.456905571045354  accuracy = 98 %
+Finished Training
+
+
+testing:
+accuracy = 99 %
+
+Accuracy of     0 : 98 %
+Accuracy of     1 : 98 %
+Accuracy of     2 : 98 %
+Accuracy of     3 : 97 %
+Accuracy of     4 : 98 %
+Accuracy of     5 : 96 %
+Accuracy of     6 : 99 %
+Accuracy of     7 : 99 %
+Accuracy of     8 : 97 %
+Accuracy of     9 : 99 %
+Accuracy of    10 : 99 %
+Accuracy of    11 : 99 %
+Accuracy of    12 : 99 %
+Accuracy of    13 : 99 %
+Accuracy of    14 : 98 %
+Accuracy of    15 : 100 %
+Accuracy of    16 : 100 %
+Accuracy of    17 : 100 %
+Accuracy of    18 : 99 %
+Accuracy of    19 : 100 %
+Accuracy of    20 : 97 %
+Accuracy of    21 : 100 %
+Accuracy of    22 : 100 %
+Accuracy of    23 : 99 %
+Accuracy of    24 : 98 %
+Accuracy of    25 : 99 %
+Accuracy of    26 : 95 %
+Accuracy of    27 : 100 %
+Accuracy of    28 : 99 %
+Accuracy of    29 : 98 %
+Accuracy of    30 : 100 %
+Accuracy of    31 : 99 %
+Accuracy of    32 : 100 %
+Accuracy of    33 : 100 %
+Accuracy of    34 : 100 %
+Accuracy of    35 : 98 %
+Accuracy of    36 : 100 %
+Accuracy of    37 : 100 %
+Accuracy of    38 : 98 %
+Accuracy of    39 : 98 %
+Accuracy of    40 : 100 %
+Accuracy of    41 : 96 %
+Accuracy of    42 : 100 %
+
+*****************************************************
+Inception: 
+
+training:
+epoch 0 : loss =  426.03171622753143  accuracy = 77 %
+epoch 1 : loss =  212.9959973692894  accuracy = 85 %
+epoch 2 : loss =  148.72988222539425  accuracy = 88 %
+epoch 3 : loss =  121.4020072966814  accuracy = 93 %
+epoch 4 : loss =  98.1712536662817  accuracy = 92 %
+epoch 5 : loss =  85.02650810778141  accuracy = 93 %
+epoch 6 : loss =  74.03232546150684  accuracy = 94 %
+epoch 7 : loss =  69.5830480530858  accuracy = 95 %
+epoch 8 : loss =  60.311295576393604  accuracy = 95 %
+epoch 9 : loss =  56.961192924529314  accuracy = 96 %
+epoch 10 : loss =  52.26206177100539  accuracy = 96 %
+epoch 11 : loss =  47.36168960854411  accuracy = 97 %
+epoch 12 : loss =  45.645564556121826  accuracy = 96 %
+epoch 13 : loss =  44.12479230761528  accuracy = 97 %
+epoch 14 : loss =  39.81938748434186  accuracy = 97 %
+epoch 15 : loss =  37.99158287793398  accuracy = 97 %
+epoch 16 : loss =  36.21457954496145  accuracy = 97 %
+epoch 17 : loss =  32.937848284840584  accuracy = 97 %
+epoch 18 : loss =  33.260498002171516  accuracy = 97 %
+epoch 19 : loss =  30.569663409143686  accuracy = 98 %
+Finished Training
+
+testing: 
+accuracy = 98 %
+
+Accuracy of     0 : 98 %
+Accuracy of     1 : 98 %
+Accuracy of     2 : 96 %
+Accuracy of     3 : 95 %
+Accuracy of     4 : 94 %
+Accuracy of     5 : 90 %
+Accuracy of     6 : 100 %
+Accuracy of     7 : 97 %
+Accuracy of     8 : 97 %
+Accuracy of     9 : 98 %
+Accuracy of    10 : 99 %
+Accuracy of    11 : 99 %
+Accuracy of    12 : 99 %
+Accuracy of    13 : 100 %
+Accuracy of    14 : 100 %
+Accuracy of    15 : 100 %
+Accuracy of    16 : 99 %
+Accuracy of    17 : 100 %
+Accuracy of    18 : 95 %
+Accuracy of    19 : 98 %
+Accuracy of    20 : 92 %
+Accuracy of    21 : 100 %
+Accuracy of    22 : 100 %
+Accuracy of    23 : 99 %
+Accuracy of    24 : 97 %
+Accuracy of    25 : 99 %
+Accuracy of    26 : 98 %
+Accuracy of    27 : 100 %
+Accuracy of    28 : 99 %
+Accuracy of    29 : 100 %
+Accuracy of    30 : 96 %
+Accuracy of    31 : 97 %
+Accuracy of    32 : 100 %
+Accuracy of    33 : 100 %
+Accuracy of    34 : 100 %
+Accuracy of    35 : 99 %
+Accuracy of    36 : 100 %
+Accuracy of    37 : 100 %
+Accuracy of    38 : 100 %
+Accuracy of    39 : 100 %
+Accuracy of    40 : 99 %
+Accuracy of    41 : 100 %
+Accuracy of    42 : 100 %
+
