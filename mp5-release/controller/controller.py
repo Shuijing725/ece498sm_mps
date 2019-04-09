@@ -10,8 +10,26 @@ from scipy.optimize import fsolve
 
 V_R = 10.0
 
+# use np.arctan to find an angle, and correct it by +- 180 degrees if needed
+# p1, p2: two points, each point is a 2-tuple (x, y)
+def find_arctan(p1, p2):
+	x1, y1 = p1
+	x2, y2 = p2
+	# since  -pi/2 <= alpha <= pi/2, alpha is now in 1st or 4th quadrant
+	alpha = np.arctan((y2 - y1) / (x2 - x1))
+	# print('alpha before conversion:', alpha / np.pi * 180)
+	# if the angle is in 2nd or 3rd quadrant, add 180 degrees to correct it
+	if x2 - x1 < 0:
+		alpha += np.pi
+	return alpha
+
 def controller(state, state_d):
+	# hyper-parameters
+	eps = 0.01
+	K = 0.01
+
 	x, y, theta = state
+	# print('init state: (', x, y, theta / np.pi * 280, ')')
 	xd, yd = state_d
 	#######################
 	# Based on state and state_d
@@ -20,10 +38,20 @@ def controller(state, state_d):
 	# You can use a controller very similar 
 	# described in the MP write-up
 	#########################
-	
 
+	alpha = find_arctan((x, y), (xd, yd)) - theta
+	print('init alpha:', alpha / np.pi * 180)
+	if np.abs(alpha) > eps:
+		while np.abs(alpha) > eps:
+			delta = K * alpha
+			x, y, theta = model((x, y, theta), delta, V_R = 0)
+			alpha = find_arctan((x, y), (xd, yd)) - theta
+			# print('(x, y, theta) = (', x, y, theta, '), alpha:', alpha, ', delta:', delta)
+		return theta, 0
 
-	return None 
+	else:
+		v = ((yd - y)**2 + (xd - x)**2) / 100
+		return 0, v
 
 def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, time_steps = 1000):
 	'''
@@ -39,7 +67,7 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 	safe_check: whether the path computed by the controller is safe or not
 	'''
 	safe_check = True
-	data = []
+	# data = []
 	x, y, theta = state
 	x_d, y_d= reach_state
 	
@@ -49,7 +77,7 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 	while (dist>eps): #add relevant values in abs()
 		i += 1
 
-		data.append(state)
+		# data.append(state)
 
 		if obstacle_map is not None:		
 			if ((int(x) >= 1000) | (int(x) <= 0)  | ((int(y) >= 1000) | (int(y) <= 0))):
@@ -63,21 +91,22 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 			plt.plot(x, y, 'ro')
 
 		x, y, theta = state
-		control = controller(state, reach_state) # output two values one for steering and one for V_R
+		delta, v = controller(state, reach_state) # output two values one for steering and one for V_R
 		# UPDATE MODEL
-		state = model(state, control)
+		state = model(state, delta, V_R = v)
 
 		if i > time_steps:
 			safe_check = False
 			break
 	################################
 
-	return None 
+	# return None
 
 def test(state, reach_state):
 	plt.plot([state[0], reach_state[0]], [state[1], reach_state[1]])
-	SELECT_INPUT(state, reach_state, show_plot = True)
+	SELECT_INPUT(state, reach_state, show_plot = True, time_steps = 1500)
 	plt.show()
+	# print(model((-10, 10, np.pi), 0, 10))
 
 
 state = np.array([0, 0, 0.0])
