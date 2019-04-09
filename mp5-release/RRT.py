@@ -1,8 +1,7 @@
 import numpy as np 
 import random 
 from PIL import Image, ImageDraw
-from util import dist, node
-from controller.controller import controller, simulation
+from controller.controller import SELECT_INPUT, simulation
 import copy
 BLACK = (0, 0, 0)
 GOAL = (255, 255, 255)
@@ -24,6 +23,17 @@ def dist(s1, s2):
 
 	return np.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
 
+def NEW_STATE(Xnear, U, Deltat):
+	'''
+	Based on the output by the SELECT_INPUT()
+	you have to compute the next state using Xnear and Deltat
+	'''
+	#######
+	## add code here
+	#######
+	return None
+
+
 
 class RRT: 
 	def __init__(self, X_init, X_goal, winsize, static_obstacles = 'maps/fourway_intersection.jpeg'):
@@ -41,16 +51,12 @@ class RRT:
 		self.path = None
 
 	def findNearest(self, Xrand):
-		###########################
-		## write the code here####
-		#########################
-		return None
-		#Nodes = self.nodes[0]
-		#for p in self.nodes:
-		#	if dist(p.state, Xrand) < dist(Nodes.state, Xrand):
-		#		Nodes = p
+		Nodes = self.nodes[0]
+		for p in self.nodes:
+			if dist(p.state, Xrand) < dist(Nodes.state, Xrand):
+				Nodes = p
 
-		#return Nodes
+		return Nodes
 
 	def getPath(self, Xnew):
 
@@ -79,10 +85,8 @@ class RRT:
 		self.static_obstacles.save('tmp.png')
 		dynamic_obstacles = Image.open('maps/fourway_intersection.jpeg').load()
 		#################################################################
-		k = 0
 		self.Xnear = self.Xinit
-		while (k < 100):
-			k += 1
+		for k in range(100):
 			safe_check = False
 			print ('iterations:', k)
 			while ((safe_check == False)):
@@ -102,7 +106,19 @@ class RRT:
 				##############################################################################
 				X_i = self.Xnear.state
 				######### simulation function uses controller function which you need to edit first##########
-				iterations, X_t, safe_check, data = simulation(X_i, self.Xrand, self.dynamic_obstacles.load())
+				U, safe_check = SELECT_INPUT(X_i, self.Xrand, self.dynamic_obstacles.load())
+
+				if safe_check:
+					Xnew = NEW_STATE(self.Xnear.state, U, Deltat)
+					## draw.line((Xnew[0], Xnew[1], X_i[0], X_il[1]), fill=PATH)
+					## self.static_obstacles.save('tmp.png')
+					Xnew = node([X_new[0], X_new[1], float(X_new[2]%(2*np.pi))], self.Xnear)
+					self.nodes.append(Xnew)
+
+
+
+
+
 				#############################################################################################
 				## If your simulation() returns safe_check = True
 				## your code needs to take one step towards the sampled point
