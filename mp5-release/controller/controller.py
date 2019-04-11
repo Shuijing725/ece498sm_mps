@@ -67,7 +67,7 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 	safe_check: whether the path computed by the controller is safe or not
 	'''
 	safe_check = True
-	# data = []
+	data = []
 	x, y, theta = state
 	x_d, y_d= reach_state
 	
@@ -92,15 +92,19 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 
 		x, y, theta = state
 		delta, v = controller(state, reach_state) # output two values one for steering and one for V_R
+		#add state x,y,theta and control delta,v to U output
+		data.append((x,y,theta,delta,v))
 		# UPDATE MODEL
 		state = model(state, delta, V_R = v)
-
+		#update new distance
+        	dist = np.sqrt((x - x_d)**2 + (y - y_d)**2)
+		
 		if i > time_steps:
 			safe_check = False
 			break
 	################################
 
-	# return None
+	return data, safe_check
 
 def test(state, reach_state):
 	plt.plot([state[0], reach_state[0]], [state[1], reach_state[1]])
