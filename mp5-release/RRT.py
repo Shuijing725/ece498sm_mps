@@ -31,7 +31,12 @@ def NEW_STATE(Xnear, U, Deltat):
 	#######
 	## add code here
 	#######
-	return None
+	#Deltat is never defined????
+	#wouldnt the new state just be the last entry in U?? 
+	#for state in U:
+	#	x,y,theta = state
+	new_state = U[-1]	
+	return new_state
 
 
 
@@ -110,8 +115,8 @@ class RRT:
 
 				if safe_check:
 					Xnew = NEW_STATE(self.Xnear.state, U, Deltat)
-					## draw.line((Xnew[0], Xnew[1], X_i[0], X_il[1]), fill=PATH)
-					## self.static_obstacles.save('tmp.png')
+					draw.line((Xnew[0], Xnew[1], X_i[0], X_il[1]), fill=PATH)
+					self.static_obstacles.save('tmp.png')
 					Xnew = node([X_new[0], X_new[1], float(X_new[2]%(2*np.pi))], self.Xnear)
 					self.nodes.append(Xnew)
 
