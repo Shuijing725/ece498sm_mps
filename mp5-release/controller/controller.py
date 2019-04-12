@@ -77,7 +77,7 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 	while (dist>eps): #add relevant values in abs()
 		i += 1
 
-		# data.append(state)
+		data.append(state)
 
 		if obstacle_map is not None:		
 			if ((int(x) >= 1000) | (int(x) <= 0)  | ((int(y) >= 1000) | (int(y) <= 0))):
@@ -92,8 +92,6 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 
 		x, y, theta = state
 		delta, v = controller(state, reach_state) # output two values one for steering and one for V_R
-		#add state x,y,theta and control delta,v to U output
-		data.append((x,y,theta,delta,v))
 		# UPDATE MODEL
 		state = model(state, delta, V_R = v)
 		#update new distance
