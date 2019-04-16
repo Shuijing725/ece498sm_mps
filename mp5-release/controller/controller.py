@@ -5,7 +5,7 @@ import numpy as np
 from numpy import linalg as LA 
 import matplotlib.pyplot as plt
 import argparse
-from model import model
+from .model import model
 from scipy.optimize import fsolve
 
 V_R = 10.0
@@ -25,8 +25,8 @@ def find_arctan(p1, p2):
 
 def controller(state, state_d):
 	# hyper-parameters
-	eps = 0.01
-	K = 0.01
+	eps = 0.1
+	K = .5
 
 	x, y, theta = state
 	# print('init state: (', x, y, theta / np.pi * 280, ')')
@@ -40,17 +40,21 @@ def controller(state, state_d):
 	#########################
 
 	alpha = find_arctan((x, y), (xd, yd)) - theta
-	print('init alpha:', alpha / np.pi * 180)
+	if(alpha < 0):
+		alpha = alpha + (2*np.pi)
+	#print('init alpha:', alpha / np.pi * 180, alpha)
 	if np.abs(alpha) > eps:
 		while np.abs(alpha) > eps:
 			delta = K * alpha
 			x, y, theta = model((x, y, theta), delta, V_R = 0)
 			alpha = find_arctan((x, y), (xd, yd)) - theta
-			# print('(x, y, theta) = (', x, y, theta, '), alpha:', alpha, ', delta:', delta)
+			if(alpha < 0):
+				alpha = alpha + (2*np.pi)
+			#print('(x, y, theta) = (', x, y, theta, '), alpha:', alpha, ', delta:', delta)
 		return theta, 0
 
 	else:
-		v = ((yd - y)**2 + (xd - x)**2) / 100
+		v = np.sqrt(((yd - y)**2 + (xd - x)**2))# / 100
 		return 0, v
 
 def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, time_steps = 1000):
@@ -68,12 +72,13 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 	'''
 	safe_check = True
 	data = []
+	data.append(state)
 	x, y, theta = state
 	x_d, y_d= reach_state
 	
 	dist = np.sqrt((x - x_d)**2 + (y - y_d)**2)
 	i = 0
-	eps = 0.01
+	eps = 0.1
 	while (dist>eps): #add relevant values in abs()
 		i += 1
 
@@ -89,14 +94,14 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 		if show_plot:
 			print ('state:', state, 'iterations:', i)
 			plt.plot(x, y, 'ro')
-
+		
+		#print("iteration:", i)
 		x, y, theta = state
 		delta, v = controller(state, reach_state) # output two values one for steering and one for V_R
 		# UPDATE MODEL
 		state = model(state, delta, V_R = v)
 		#update new distance
-        	dist = np.sqrt((x - x_d)**2 + (y - y_d)**2)
-		
+		dist = np.sqrt((x - x_d)**2 + (y - y_d)**2)
 		if i > time_steps:
 			safe_check = False
 			break
@@ -111,8 +116,8 @@ def test(state, reach_state):
 	# print(model((-10, 10, np.pi), 0, 10))
 
 
-state = np.array([0, 0, 0.0])
-test(state, np.array([-10,100]))
+#state = np.array([0, 0, 0.0])
+#test(state, np.array([-10,100]))
 
 
 
