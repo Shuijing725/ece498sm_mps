@@ -1,7 +1,7 @@
 import numpy as np 
 import random 
 from PIL import Image, ImageDraw
-from controller.controller import SELECT_INPUT, simulation
+from controller.controller import SELECT_INPUT
 import copy
 BLACK = (0, 0, 0)
 GOAL = (255, 255, 255)
@@ -31,10 +31,6 @@ def NEW_STATE(Xnear, U, Deltat):
 	#######
 	## add code here
 	#######
-	#Deltat is never defined????
-	#wouldnt the new state just be the last entry in U?? 
-	#for state in U:
-	#	x,y,theta = state
 	new_state = U[-1]	
 	return new_state
 
@@ -93,7 +89,7 @@ class RRT:
 		self.Xnear = self.Xinit
 		for k in range(100):
 			safe_check = False
-			print ('iterations:', k)
+			print ('RRT iterations:', k)
 			while ((safe_check == False)):
 				checkXrand = True
 				while (checkXrand):
@@ -114,10 +110,10 @@ class RRT:
 				U, safe_check = SELECT_INPUT(X_i, self.Xrand, self.dynamic_obstacles.load())
 
 				if safe_check:
-					Xnew = NEW_STATE(self.Xnear.state, U, Deltat)
-					draw.line((Xnew[0], Xnew[1], X_i[0], X_il[1]), fill=PATH)
+					Xnew = NEW_STATE(self.Xnear.state, U, 0)
+					draw.line((Xnew[0], Xnew[1], X_i[0], X_i[1]), fill=PATH)
 					self.static_obstacles.save('tmp.png')
-					Xnew = node([X_new[0], X_new[1], float(X_new[2]%(2*np.pi))], self.Xnear)
+					Xnew = node([Xnew[0], Xnew[1], float(Xnew[2]%(2*np.pi))], self.Xnear)
 					self.nodes.append(Xnew)
 
 
