@@ -23,6 +23,11 @@ def find_arctan(p1, p2):
 		alpha += np.pi
 	return alpha
 
+# controller that moves the car from origin to destination for ONE STEP in a 2D plane, by first adjusting the angle,
+# then hit the throttle straight to destination
+# state: (x, y, angle) current position of the car
+# state_d: (xd, yd) destination of the car
+# return values: angle: the angle that the car will align to; velocity: how fast/far the car will move
 def controller(state, state_d):
 	# hyper-parameters
 	eps = 0.1
@@ -43,6 +48,7 @@ def controller(state, state_d):
 	if(alpha < 0):
 		alpha = alpha + (2*np.pi)
 	#print('init alpha:', alpha / np.pi * 180, alpha)
+	# if the angle is not aligned to destination, adjust the angle with velocity = 0
 	if np.abs(alpha) > eps:
 		while np.abs(alpha) > eps:
 			delta = K * alpha
@@ -52,11 +58,18 @@ def controller(state, state_d):
 				alpha = alpha + (2*np.pi)
 			#print('(x, y, theta) = (', x, y, theta, '), alpha:', alpha, ', delta:', delta)
 		return theta, 0
-
+	# if the angle is aligned, hit the throttle with current angle
 	else:
 		v = np.sqrt(((yd - y)**2 + (xd - x)**2))# / 100
 		return 0, v
 
+# moves the car from origin to destination in a 2D plane by calling controller function
+# state: (x, y, angle) current position of the car
+# state_d: (xd, yd) destination of the car
+# obstacle_map: map of obstacles, provided
+# show_plot: plot the trace of the car
+# time_steps: maximum steps that the car is allowed to move by controller
+# return values: data -- the historical states of the car; safe_check -- whether the last state should be a node in the graph
 def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, time_steps = 1000):
 	'''
 	This will come up with a set of desired inputs such that the car drives from state ---> reach_state
@@ -79,11 +92,12 @@ def SELECT_INPUT(state, reach_state, obstacle_map = None, show_plot = False, tim
 	dist = np.sqrt((x - x_d)**2 + (y - y_d)**2)
 	i = 0
 	eps = 0.1
+	# while the car is not near the destination, move the car
 	while (dist>eps): #add relevant values in abs()
 		i += 1
 
 		data.append(state)
-
+		# detect obstacles
 		if obstacle_map is not None:		
 			if ((int(x) >= 1000) | (int(x) <= 0)  | ((int(y) >= 1000) | (int(y) <= 0))):
 				safe_check = False

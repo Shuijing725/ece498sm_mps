@@ -13,7 +13,7 @@ class node():
 		self.parent = parent
 		self.children = []
 		
-
+# square of l2 distance between s1 = (x1, y1) and s2 = (x2, y2)
 def dist(s1, s2):
 	x1 = s1[0]
 	y1 = s1[1]
@@ -23,7 +23,9 @@ def dist(s1, s2):
 
 	return np.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
 
-def NEW_STATE(Xnear, U, Deltat):
+# U: a list of historical states that controller.py visited
+# return value: the last state in the list
+def NEW_STATE(U):
 	'''
 	Based on the output by the SELECT_INPUT()
 	you have to compute the next state using Xnear and Deltat
@@ -74,6 +76,7 @@ class RRT:
 		path.reverse()
 		return path
 
+	# plan safe paths to the car by RRT random tree algorithm
 	def plan(self):
 
 		epsilon = .25
@@ -90,9 +93,11 @@ class RRT:
 		#dynamic_obstacles = Image.open('maps/single_road.jpeg').load()
 		#################################################################
 		self.Xnear = self.Xinit
+		# for 100 iterations
 		for k in range(100):
 			safe_check = False
 			print ('RRT iterations:', k)
+			# X_rand <- Random_State()
 			while ((safe_check == False)):
 				checkXrand = True
 				while (checkXrand):
@@ -110,24 +115,25 @@ class RRT:
 						checkXrand = True
 					else: 
 						checkXrand = False
-				##############################################################################
+
+				# X_near <- Nearest_Neighbor(X_rand)
 				self.Xnear = self.findNearest(self.Xrand) 
 				#Finds nearest node to this sampled state 
 				# you need to write the code for this function
 				##############################################################################
 				X_i = self.Xnear.state
+				# U <- Select_Input(X_rand, X_near)
 				######### simulation function uses controller function which you need to edit first##########
 				U, safe_check = SELECT_INPUT(X_i, self.Xrand, self.dynamic_obstacles.load())
 
 				if safe_check:
-					Xnew = NEW_STATE(self.Xnear.state, U, 0)
+					# X_new <- New_State(X_near, U, delta_t)
+					Xnew = NEW_STATE(U)
+					# add vertex X_new to map
 					draw.line((Xnew[0], Xnew[1], X_i[0], X_i[1]), fill=PATH)
 					self.static_obstacles.save('tmp.png')
 					Xnew = node([Xnew[0], Xnew[1], float(Xnew[2]%(2*np.pi))], self.Xnear)
 					self.nodes.append(Xnew)
-
-
-
 
 
 				#############################################################################################
