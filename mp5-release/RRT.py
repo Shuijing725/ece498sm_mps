@@ -38,6 +38,7 @@ def NEW_STATE(Xnear, U, Deltat):
 
 class RRT: 
 	def __init__(self, X_init, X_goal, winsize, static_obstacles = 'maps/fourway_intersection.jpeg'):
+	#def __init__(self, X_init, X_goal, winsize, static_obstacles = 'maps/single_road.jpeg'):
 
 		self.nodes = []
 		self.Xinit = node(X_init, None) 
@@ -75,6 +76,7 @@ class RRT:
 
 	def plan(self):
 
+		epsilon = .25
 		goal_state = False
 		############## Draws Goal area in the image tmp.png############
 		draw = ImageDraw.Draw(self.static_obstacles)
@@ -85,6 +87,7 @@ class RRT:
 
 		self.static_obstacles.save('tmp.png')
 		dynamic_obstacles = Image.open('maps/fourway_intersection.jpeg').load()
+		#dynamic_obstacles = Image.open('maps/single_road.jpeg').load()
 		#################################################################
 		self.Xnear = self.Xinit
 		for k in range(100):
@@ -94,7 +97,14 @@ class RRT:
 				checkXrand = True
 				while (checkXrand):
 					######### randomly sampling points in RRT #############################
-					self.Xrand = [abs(10*random.randint(1, 100)-1), abs(10*random.randint(1, 100)-1)] 
+					if(random.random() < epsilon):
+						self.Xrand = [abs(random.randint(self.X_goal[0], self.X_goal[2])-1), abs(random.randint(self.X_goal[1], self.X_goal[3])-1)]
+					else:
+						self.Xrand = [abs(10*random.randint(1, 100)-1), abs(10*random.randint(1, 100)-1)] 
+						#self.Xrand = [abs(100*random.randint(1, 10)-1), abs(100*random.randint(1, 10)-1)] 
+						#self.Xrand = [abs(1*random.randint(1, 1000)-1), abs(1*random.randint(1, 1000)-1)] 
+					
+					
 					######### Checks whether sampled point is an obstacle or not ############
 					if ((dynamic_obstacles[self.Xrand[0], self.Xrand[1]]) == 0):
 						checkXrand = True
